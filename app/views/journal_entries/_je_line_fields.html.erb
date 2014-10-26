@@ -1,0 +1,9 @@
+<fieldset class="nested-fields">
+  <%= f.label :account %>
+  <%= f.collection_select :account_id, @accounts, :id, :number_and_name %>
+  <%= f.label :debit_amount %>
+  <%= f.number_field :debit_amount %>
+  <%= f.label :credit_amount %>
+  <%= f.number_field :credit_amount %>
+  <%= link_to_remove_association "remove", f %>
+</fieldset>

@@ -1,0 +1,40 @@
+<%= form_for(@journal_entry) do |f| %>
+  <% if @journal_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@journal_entry.errors.count, "error") %> prohibited this journal_entry from being saved:</h2>
+
+      <ul>
+      <% @journal_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :je_number %><br>
+    <%= f.text_field :je_number %>
+  </div>
+  <div class="field">
+    <%= f.label :accounting_date %><br>
+    <%= f.text_field :accounting_date, value: @today %>
+  </div>
+  <div class="field">
+    <%= f.label :accounting_period %><br>
+    <%= f.collection_select :accounting_date, value: @today %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <h2>JE Lines</h2>
+  <%= f.fields_for :je_lines do |je_line| %>
+    <%= render 'je_line_fields', :f => je_line %>
+  <% end %>
+  <div class="links">
+    <%= link_to_add_association 'Add Distribution', f, :je_lines %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create Journal Entry" %>
+  </div>
+<% end %>
